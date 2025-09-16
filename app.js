@@ -17,23 +17,28 @@ async function buscarImagens(raca) {
     const response = await fetch(url)
     const imagens = await response.json()
 
-    const containerImgs = document.getElementById('containerDog')
+    if (imagens.message.length == 45) {
+        alert('Nenhum cachorro dessa raça foi encontrado')
 
-    for (let i = 0; i < imagens.message.length; i++) {
-        const containerImg = document.createElement('div')
-        containerImg.classList.add('containerImg')
-        containerImgs.appendChild(containerImg)
+    } else {
+        const containerImgs = document.getElementById('containerDog')
 
-        const img = document.createElement('img')
-        img.classList.add('imgDog')
-        img.src = imagens.message[i]
-        containerImg.appendChild(img)
+        for (let i = 0; i < imagens.message.length; i++) {
+            const containerImg = document.createElement('div')
+            containerImg.classList.add('containerImg')
+            containerImgs.appendChild(containerImg)
+
+            const img = document.createElement('img')
+            img.classList.add('imgDog')
+            img.src = imagens.message[i]
+            containerImg.appendChild(img)
+        }
+
     }
-
 }
 
 document.addEventListener('click', () => {
-    if (!input.contains(event.target) || lista.contains(event.target)) {
+    if (!input.contains(event.target) && !lista.contains(event.target)) {
         lista.style.display = 'none'
     }
 })
